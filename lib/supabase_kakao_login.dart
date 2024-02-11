@@ -51,7 +51,7 @@ class SupabaseKakaoLogin extends StatelessWidget {
   Future hashKeyCheck() async {
     var hash = await KakaoSdk.origin;
     if (hash.isNotEmpty) {
-      print('hash key : $hash');
+      // print('hash key : $hash');
       return "해시키 존재";
     } else {
       return "해시키 없음";
