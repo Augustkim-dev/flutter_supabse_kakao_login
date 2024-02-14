@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_supabse_kakao_login/supabase_kakao_login.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk_template.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://gocpskrrkaptukxazafb.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvY3Bza3Jya2FwdHVreGF6YWZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYyNDY4MDIsImV4cCI6MjAyMTgyMjgwMn0.Eh_livKHLJfoR90PbovE0s5JTE-pe9x7qchMY4YpS-8',
+  );
 
   KakaoSdk.init(
     nativeAppKey: 'b0aa81e15f8889c4308f5c734647749d',

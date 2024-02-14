@@ -1,9 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_supabse_kakao_login/kakao_login_info.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk_template.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseKakaoLogin extends StatelessWidget {
-  const SupabaseKakaoLogin({super.key});
+  SupabaseKakaoLogin({super.key});
+
+  final supabase = Supabase.instance.client;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +39,26 @@ class SupabaseKakaoLogin extends StatelessWidget {
               },
               child: Text('Hash key check'),
             ),
+            ElevatedButton(
+                onPressed: () async {
+                  final signin =
+                      await supabase.auth.signInWithOAuth(OAuthProvider.kakao);
+                  print('로그인 결과 : $signin');
+                  supabase.auth.onAuthStateChange.listen((data) {
+                    final AuthChangeEvent event = data.event;
+                    print('이벤트 : $event');
+                    if (event == AuthChangeEvent.signedIn) {
+                      debugPrint('데이터 : $data');
+                      debugPrint('세션 : ${data.session}');
+
+                      // Do something when user sign in
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              KakaoInfo(session: data.session!)));
+                    }
+                  });
+                },
+                child: Text('카카오 로그인')),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
